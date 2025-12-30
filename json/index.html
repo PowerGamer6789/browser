@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Browser Information JSON</title>
+<link id="favicon" rel="icon" type="image/x-icon" href="../favicon.ico">
+<style>
+    body {
+        background: #f5f5f5;
+        color: #222;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+    h1 { margin-bottom: 15px; }
+    .card {
+        background: #ffffff;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+    }
+    textarea {
+        width: 100%;
+        height: 400px;
+        border: none;
+        resize: none;
+        font-family: monospace;
+        font-size: 14px;
+        padding: 10px;
+        box-sizing: border-box;
+        background: #fafafa;
+        color: #222;
+    }
+    button {
+        background: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px 14px;
+        font-size: 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    button:hover { background: #1d4ed8; }
+</style>
+</head>
+<body>
+
+<h1>Browser Information (JSON View)</h1>
+<button onclick="downloadJSON()">Download JSON</button>
+<div class="card">
+    <textarea id="jsonDisplay" readonly></textarea>
+</div>
+
+<div style="position: absolute; bottom: 0; left: 0; padding: 5px; font-size: 25px; font-family: Arial, Sans Serif">
+    made by pwR
+</div>
+
+<script>
+function getBrowserData() {
+    return {
+        "User Agent": navigator.userAgent,
+        "Platform": navigator.platform,
+        "Language": navigator.language,
+        "Languages": navigator.languages.join(", "),
+        "Time Zone": Intl.DateTimeFormat().resolvedOptions().timeZone,
+        "Screen Width": screen.width,
+        "Screen Height": screen.height,
+        "Device Pixel Ratio": window.devicePixelRatio,
+        "CPU Cores": navigator.hardwareConcurrency,
+        "Device Memory (GB)": navigator.deviceMemory || "Unknown",
+        "Touch Support": 'ontouchstart' in window,
+        "Online Status": navigator.onLine,
+        "Cookies Enabled": navigator.cookieEnabled,
+        "Local Storage Available": !!window.localStorage,
+        "Session Storage Available": !!window.sessionStorage,
+        "Do Not Track": navigator.doNotTrack
+    };
+}
+
+const data = getBrowserData();
+const textarea = document.getElementById("jsonDisplay");
+textarea.value = JSON.stringify(data, null, 2);
+
+function downloadJSON() {
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'export.pwr.json';
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+// --- Dynamic Favicon ---
+function setFavicon() {
+    const ua = navigator.userAgent.toLowerCase();
+    let icon = 'default.ico';
+
+    if (ua.includes('chrome') && !ua.includes('edg') && !ua.includes('opr')) icon = 'chrome.ico';
+    else if (ua.includes('firefox')) icon = 'firefox.ico';
+    else if (ua.includes('edg')) icon = 'edge.ico';
+    else if (ua.includes('trident') || ua.includes('msie')) icon = 'explorer.ico';
+    else if (ua.includes('opr') || ua.includes('opera')) icon = 'opera.ico';
+    else if (ua.includes('safari') && !ua.includes('chrome') && !ua.includes('opr') && !ua.includes('edg')) icon = 'safari.ico';
+
+    const link = document.getElementById('favicon');
+    link.href = '../' + icon;
+}
+
+setFavicon();
+</script>
+
+</body>
+</html>
