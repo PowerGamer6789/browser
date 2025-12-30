@@ -17,16 +17,14 @@ https://powergamer6789.github.io/browser
 If a website can read it without permission, it’s probably here.
 
 ## Features
-- Clean dark UI
+- Clean UI
 - Fully client-side
 - Zero dependencies
 - Export all data to JSON
 
 ## Why this exists
-People say “websites can see your info”  
+People say “websites can see your info”    
 This shows **what that actually means**.
-
-No fear-mongering. Just facts.
 
 ## Privacy
 This site:
@@ -34,8 +32,9 @@ This site:
 - Does not store anything
 - Does not track users
 
-Your browser exposes the data.
-This page just displays it.
+This data is always available.  
+This just shows it to you
 
 ## Credits
-made by **pwR**
+Made by **pwR**  
+This project was inspired by https://whatismybrowser.com
